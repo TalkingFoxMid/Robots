@@ -2,7 +2,7 @@ package ru.eatTheFrog.Robots.model.RobotsModules;
 
 import ru.eatTheFrog.Robots.model.Configuration.RobotsConfig;
 import ru.eatTheFrog.Robots.model.Entities.RobotAndInterfaces.IReproduceRobot;
-import ru.eatTheFrog.Robots.model.GameAndArbitration.GameManagers.RobotsManager.RobotsManager;
+import ru.eatTheFrog.Robots.model.GameAndArbitration.GameManagers.RobotsManager;
 
 public class RobotReproducer {
     private final RobotsManager robotsManager;

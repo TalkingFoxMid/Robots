@@ -11,6 +11,9 @@ import ru.eatTheFrog.Robots.model.static_modules.MutableVector2D;
 import ru.eatTheFrog.Robots.model.static_modules.SafetyColorBuilder;
 
 import java.awt.*;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.Optional;
 
 import static ru.eatTheFrog.Robots.model.static_modules.Algebra.MathFunctions.relu2;
@@ -197,7 +200,7 @@ public class RobotRaw extends PhysicalBody implements IRobot, IWanderizeRobot, I
     public boolean isDisposed() {
         return this.deadlyInjured;
     }
-    public void makeEated() {
+    public void makeEaten() {
         this.deadlyInjured = true;
     }
 
@@ -280,4 +283,14 @@ public class RobotRaw extends PhysicalBody implements IRobot, IWanderizeRobot, I
         if(this.getHealth() < 0)
             this.doInjured();
     }
+//
+//    @Override
+//    public void writeExternal(ObjectOutput out) throws IOException {
+//        out.writeLong(age);
+//    }
+//
+//    @Override
+//    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+//
+//    }
 }

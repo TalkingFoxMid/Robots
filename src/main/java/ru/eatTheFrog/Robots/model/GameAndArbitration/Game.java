@@ -6,7 +6,7 @@ import ru.eatTheFrog.Robots.model.Entities.RobotAndInterfaces.IDrawableRobot;
 import ru.eatTheFrog.Robots.model.GameAndArbitration.GameInterfaces.GameUIBridge;
 import ru.eatTheFrog.Robots.model.GameAndArbitration.GameManagers.FoodManager;
 import ru.eatTheFrog.Robots.model.GameAndArbitration.GameManagers.IClock;
-import ru.eatTheFrog.Robots.model.GameAndArbitration.GameManagers.RobotsManager.RobotsManager;
+import ru.eatTheFrog.Robots.model.GameAndArbitration.GameManagers.RobotsManager;
 import ru.eatTheFrog.Robots.model.GameAndArbitration.GameManagers.TheClocks;
 import ru.eatTheFrog.Robots.model.RobotSchemes.AbstractScheme;
 import ru.eatTheFrog.Robots.model.RobotsThreadsCalculateAction;
@@ -18,15 +18,13 @@ import java.util.*;
 import java.util.concurrent.ForkJoinPool;
 import java.util.stream.Stream;
 import static ru.eatTheFrog.Robots.model.static_modules.REFLECTION_OnModelExecutor.OnModelAction;
-public class Game extends AbstractOnModelUpdatingCore implements GameUIBridge, ISizedGame, ISavable {
+public class Game extends AbstractOnModelUpdatingCore implements GameUIBridge, ISizedGame {
     ForkJoinPool pool = new ForkJoinPool();
 
     private double m_width;
     private double m_height;
     private TheClocks theClocks;
     public RobotsManager robotsManager;
-
-
     public FoodManager foodManager;
 
     public Game() {
@@ -104,13 +102,15 @@ public class Game extends AbstractOnModelUpdatingCore implements GameUIBridge, I
         return this.theClocks.getTime();
     }
 
-    @Override
-    public void writeExternal(ObjectOutput out) throws IOException {
-
-    }
-
-    @Override
-    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-
-    }
+//    @Override
+//    public void writeExternal(ObjectOutput out) throws IOException {
+//        out.writeObject(this.robotsManager);
+//        out.writeObject(this.foodManager);
+//    }
+//
+//    @Override
+//    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+//        this.robotsManager.readExternal(in);
+//        this.foodManager.readExternal(in);
+//    }
 }

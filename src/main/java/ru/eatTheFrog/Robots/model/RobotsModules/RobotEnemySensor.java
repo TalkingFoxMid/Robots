@@ -3,7 +3,7 @@ package ru.eatTheFrog.Robots.model.RobotsModules;
 import ru.eatTheFrog.Robots.model.Configuration.RobotsConfig;
 import ru.eatTheFrog.Robots.model.Entities.RobotAndInterfaces.IEnemy;
 import ru.eatTheFrog.Robots.model.Entities.RobotAndInterfaces.RobotRaw;
-import ru.eatTheFrog.Robots.model.GameAndArbitration.GameManagers.RobotsManager.RobotsManager;
+import ru.eatTheFrog.Robots.model.GameAndArbitration.GameManagers.RobotsManager;
 
 import static ru.eatTheFrog.Robots.model.RobotsModules.RobotEnemyEstimator.EnemyEstimationPair;
 import java.util.stream.Stream;

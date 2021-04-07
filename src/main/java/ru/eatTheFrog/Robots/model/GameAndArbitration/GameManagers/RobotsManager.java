@@ -1,5 +1,6 @@
-package ru.eatTheFrog.Robots.model.GameAndArbitration.GameManagers.RobotsManager;
+package ru.eatTheFrog.Robots.model.GameAndArbitration.GameManagers;
 
+import ru.eatTheFrog.Robots.Savables.ISavable;
 import ru.eatTheFrog.Robots.model.Configuration.FoodsConfig;
 import ru.eatTheFrog.Robots.model.Configuration.RobotsConfig;
 import ru.eatTheFrog.Robots.model.Entities.Food.Food;
@@ -17,13 +18,16 @@ import ru.eatTheFrog.Robots.model.RobotsModules.RobotEnemySensor;
 import ru.eatTheFrog.Robots.model.static_modules.REFLECTION_OnModelExecutor;
 import ru.eatTheFrog.Robots.model.static_modules.distance.FindDistanceModule;
 
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
-public class RobotsManager extends AbstractOnModelUpdatingCore {
+public class RobotsManager extends AbstractOnModelUpdatingCore implements ISavable {
     private Random random = new Random();
     public Game game;
     private FoodManager foodManager;
@@ -98,5 +102,15 @@ public class RobotsManager extends AbstractOnModelUpdatingCore {
         return this.robots.stream()
                 .filter((x) -> FindDistanceModule.getDistance(x, robot) < enemySensor.getSeeRadius())
                 .map(x -> (IEnemy)x);
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+
     }
 }

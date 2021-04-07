@@ -1,5 +1,6 @@
 package ru.eatTheFrog.Robots.model.GameAndArbitration.GameManagers;
 
+import ru.eatTheFrog.Robots.Savables.ISavable;
 import ru.eatTheFrog.Robots.model.Configuration.FoodsConfig;
 import ru.eatTheFrog.Robots.model.Entities.Food.Food;
 import ru.eatTheFrog.Robots.model.Entities.Food.FoodType;
@@ -7,11 +8,15 @@ import ru.eatTheFrog.Robots.model.GameAndArbitration.AbstractOnModelUpdatingCore
 import ru.eatTheFrog.Robots.model.GameAndArbitration.Game;
 import ru.eatTheFrog.Robots.sugar.FrequencyExecutor;
 import static ru.eatTheFrog.Robots.model.static_modules.REFLECTION_OnModelExecutor.OnModelAction;
+
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Stream;
 
-public class FoodManager extends AbstractOnModelUpdatingCore {
+public class FoodManager extends AbstractOnModelUpdatingCore implements ISavable {
     private double foodCount = 0;
     private Game game;
     private Random random = new Random();
@@ -63,5 +68,15 @@ public class FoodManager extends AbstractOnModelUpdatingCore {
     @OnModelAction
     public void removeEatenFood() {
         this.foods.removeIf(Food::isDisposed);
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+
     }
 }

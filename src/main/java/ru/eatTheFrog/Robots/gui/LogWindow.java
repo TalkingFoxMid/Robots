@@ -7,6 +7,10 @@ import ru.eatTheFrog.Robots.log.LogWindowSource;
 
 import javax.swing.*;
 import java.awt.*;
+import java.beans.PropertyVetoException;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 public class LogWindow extends RInternalFrame implements LogChangeListener
 {

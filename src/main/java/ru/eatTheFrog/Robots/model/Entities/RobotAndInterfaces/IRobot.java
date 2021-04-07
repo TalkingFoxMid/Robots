@@ -1,5 +1,6 @@
 package ru.eatTheFrog.Robots.model.Entities.RobotAndInterfaces;
 
+import ru.eatTheFrog.Robots.Savables.ISavable;
 import ru.eatTheFrog.Robots.model.RobotSchemes.AbstractScheme;
 import ru.eatTheFrog.Robots.model.static_modules.IReadonlyVector2D;
 

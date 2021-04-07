@@ -10,11 +10,10 @@ import ru.eatTheFrog.Robots.gui.RMenu.RMenuItem;
 import ru.eatTheFrog.Robots.log.Logger;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectOutput;
+import java.io.*;
 
 /**
  * Что требуется сделать:
@@ -23,9 +22,10 @@ import java.io.ObjectOutput;
  */
 public class MainApplicationFrame extends JFrame implements IDisposable, ISavable {
     private final JDesktopPane desktopPane = new JDesktopPane();
-    private final String AUTO_SAVE_PATH_NAME = "autosave";
+    private final String AUTO_SAVE_PATH_NAME = "autosave.rbts";
     private final GameWindow gameWindow;
     private final LogWindow logWindow;
+    private JFileChooser fileChooser;
 
 
     public MainApplicationFrame() {
@@ -50,12 +50,10 @@ public class MainApplicationFrame extends JFrame implements IDisposable, ISavabl
                 new RMenuBar(
                         new RMenu("Меню",
                                 new RMenuItem("Сохранить", (event) -> {
-                                    var path = JOptionPane.showInputDialog(null, "Куда сохранить файл?");
-                                    saveTo(path);
+                                    saveTo(chooseFile());
                                 }),
                                 new RMenuItem("Загрузить", (event) -> {
-                                  var path = JOptionPane.showInputDialog(null, "Какой файл загрузить?");
-                                  loadSaveFrom(path);
+                                    loadSaveFrom(chooseFile());
                                 }),
                                 new RMenuItem("Выход", (event) -> {
                                     YesNoDialogCaller.internalFrameClosing(this);
@@ -96,9 +94,24 @@ public class MainApplicationFrame extends JFrame implements IDisposable, ISavabl
         askToLoad();
     }
 
-    protected void saveTo(String path){
+    protected String chooseFile() {
+        if (fileChooser == null) {
+            fileChooser = new JFileChooser(".");
+            var filter = new FileNameExtensionFilter("Robots save files", "rbts");
+            fileChooser.setFileFilter(filter);
+            fileChooser.addChoosableFileFilter(filter);
+        }
+        var answer = fileChooser.showOpenDialog(null);
+        if (answer == JFileChooser.APPROVE_OPTION)
+            return fileChooser.getSelectedFile().getPath();
+        return null;
+    }
+
+    protected void saveTo(String path) {
+        if (path == null)
+            return;
         try {
-            Saver.saveToFile(this, path + ".rbts");
+            Saver.saveToFile(this, (path.endsWith(".rbts") ? path : path + ".rbts"));
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null,
                     "ERROR - saving gone completely wrong" + e.toString(),
@@ -107,19 +120,27 @@ public class MainApplicationFrame extends JFrame implements IDisposable, ISavabl
         }
     }
 
-    protected void loadSaveFrom(String path){
+    protected void showError(String title, String message) {
+        JOptionPane.showMessageDialog(null,
+                message,
+                title,
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+    protected void loadSaveFrom(String path) {
+        if (path == null)
+            return;
         try {
-            Saver.updateFromFile(this, path + ".rbts");
+            Saver.updateFromFile(this, path);
+        } catch (InvalidClassException e) {
+            showError("old format", "This save file is of old format. Make a new one!");
+        }catch (StreamCorruptedException e){
+            showError("corrupted file", "This save file is corrupted,");
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null,
-                    String.format("IOException - can't get to %s", path),
-                    "file not found",
-                    JOptionPane.ERROR_MESSAGE);
+            System.out.println(e);
+            showError("IO exception", String.format("IOException - can't get to %s", path));
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,
-                    "Bad save file format",
-                    "bad format",
-                    JOptionPane.ERROR_MESSAGE);
+            showError("bad format", "Bad save file format");
         }
     }
 
