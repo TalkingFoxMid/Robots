@@ -1,5 +1,6 @@
 package ru.eatTheFrog.Robots.model.GameAndArbitration;
 
+import ru.eatTheFrog.Robots.Savables.ISavable;
 import ru.eatTheFrog.Robots.model.Entities.Food.Food;
 import ru.eatTheFrog.Robots.model.Entities.RobotAndInterfaces.IDrawableRobot;
 import ru.eatTheFrog.Robots.model.GameAndArbitration.GameInterfaces.GameUIBridge;
@@ -10,11 +11,14 @@ import ru.eatTheFrog.Robots.model.GameAndArbitration.GameManagers.TheClocks;
 import ru.eatTheFrog.Robots.model.RobotSchemes.AbstractScheme;
 import ru.eatTheFrog.Robots.model.RobotsThreadsCalculateAction;
 
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.*;
 import java.util.concurrent.ForkJoinPool;
 import java.util.stream.Stream;
 import static ru.eatTheFrog.Robots.model.static_modules.REFLECTION_OnModelExecutor.OnModelAction;
-public class Game extends AbstractOnModelUpdatingCore implements GameUIBridge, ISizedGame {
+public class Game extends AbstractOnModelUpdatingCore implements GameUIBridge, ISizedGame, ISavable {
     ForkJoinPool pool = new ForkJoinPool();
 
     private double m_width;
@@ -98,5 +102,15 @@ public class Game extends AbstractOnModelUpdatingCore implements GameUIBridge, I
     }
     public long getTime() {
         return this.theClocks.getTime();
+    }
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+
     }
 }

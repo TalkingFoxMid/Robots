@@ -5,8 +5,11 @@ import ru.eatTheFrog.Robots.model.GameAndArbitration.Game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
-public class GameWindow extends RInternalFrame implements IDisposable {
+public class GameWindow extends RInternalFrame {
     private final GameVisualizer m_visualizer;
 
     public GameWindow() {
@@ -16,7 +19,6 @@ public class GameWindow extends RInternalFrame implements IDisposable {
         panel.add(m_visualizer, BorderLayout.CENTER);
         getContentPane().add(panel);
         pack();
-        YesNoDialogCaller.signOnJInternalFrame(this);
         m_visualizer.startTimers();
     }
     public void setGameSpeed(int gameSpeed){

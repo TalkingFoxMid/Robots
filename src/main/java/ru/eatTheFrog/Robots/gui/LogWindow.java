@@ -1,5 +1,6 @@
 package ru.eatTheFrog.Robots.gui;
 
+import ru.eatTheFrog.Robots.Savables.ISavable;
 import ru.eatTheFrog.Robots.log.LogChangeListener;
 import ru.eatTheFrog.Robots.log.LogEntry;
 import ru.eatTheFrog.Robots.log.LogWindowSource;
@@ -7,7 +8,7 @@ import ru.eatTheFrog.Robots.log.LogWindowSource;
 import javax.swing.*;
 import java.awt.*;
 
-public class LogWindow extends RInternalFrame implements LogChangeListener, IDisposable
+public class LogWindow extends RInternalFrame implements LogChangeListener
 {
     private LogWindowSource m_logSource;
     private TextArea m_logContent;
@@ -25,9 +26,6 @@ public class LogWindow extends RInternalFrame implements LogChangeListener, IDis
         getContentPane().add(panel);
         pack();
         updateLogContent();
-
-        YesNoDialogCaller.signOnJInternalFrame(this);
-
     }
 
     @Override
